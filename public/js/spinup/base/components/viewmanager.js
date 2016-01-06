@@ -4,9 +4,9 @@ goog.require('app.base.ViewEventType');
 goog.require('app.base.view.Home');
 goog.require('bad.UserManager');
 goog.require('bad.ui.View');
-goog.require('contracts.urlMap');
 goog.require('goog.array');
 goog.require('goog.object');
+
 
 /**
  * @constructor

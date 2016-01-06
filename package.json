@@ -17,14 +17,14 @@
     "compile": "npm run deps && npm run lint && npm run compile:js && npm run compile:css"
   },
   "dependencies": {
-    "bad-library": "^1.0.0",
+    "bad-library": "^2.0.0",
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "express-session": "^1.12.1",
-    "google-closure-compiler": "^20151216.1.0",
-    "google-closure-library": "^20151216.0.0",
+    "google-closure-compiler": "^20151015.0.0",
+    "google-closure-library": "*",
     "jade": "~1.11.0",
     "less": "^2.5.3",
     "less-middleware": "^2.0.1",
@@ -33,5 +33,8 @@
     "morgan": "~1.6.1",
     "request": "^2.67.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
   }
 }
