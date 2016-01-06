@@ -1,0 +1,20 @@
+# Local sym-linked directories to node modules
+/public/js/google-closure-library
+/public/js/bad-library
+
+# Compiled JS and CSS
+/public/js/deps.js
+/public/compiled
+
+
+/.idea
+/node_modules
+
+# Logs
+logs
+*.log
+
+# Local settings file. Used for deploayment box specific things, or de settings
+/settings_local.json
+/deps.js
+

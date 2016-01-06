@@ -1,0 +1,7 @@
+{
+  "title": "Your App Name",
+  "theme": "abstract",
+  "jsIsCompiled": true,
+  "siteUrl": "http://localhost:3000",
+  "sessionSecret": "mathematical cat cucumber möbius"
+}

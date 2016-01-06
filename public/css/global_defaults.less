@@ -1,0 +1,218 @@
+@import (reference) "global_typo_ref";
+@import (reference) "global_col_ref";
+
+*:focus  {
+  outline: none;
+}
+
+html {
+  font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover, a:focus {
+  text-decoration: none !important;
+}
+
+abbr, acronym {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+blockquote {
+  margin: 1em 30px;
+}
+
+body, html {
+  height: 100%;
+}
+
+body {
+  .typoBody1();
+  background-color: transparent;
+  overflow: hidden;
+}
+
+body.waiting * {
+  cursor: wait;
+}
+
+code {
+  font: 13px Monaco, Courier, monospace;
+  line-height: 1.6;
+}
+
+h1 {
+  .typoLightHeadline();
+  margin-top: 0;
+}
+h2 {
+  .typoSubhead();
+}
+
+i {
+  font-style: italic;
+}
+
+img {
+  max-width: none;
+}
+
+select, input, textarea {
+  .typoBody1(@col: @col_TYPO-NORM)
+}
+p {
+  margin: 10px 0;
+}
+pre {
+  width: 100%;
+  overflow: auto;
+  background: @col-PRE-bg;
+}
+
+pre.cleanPre {
+  width: initial;
+  overflow: initial;
+  background: transparent;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+select {
+  width: 80%;
+}
+textarea {
+  width: 90%;
+}
+table {
+  width: 100%;
+}
+
+caption {
+  text-align: left;
+  font-size: 1.5em;
+  padding: 5px 0 2px;
+  margin-top: 20px;
+}
+
+caption > p {
+  font-size: 10px;
+  margin-top: -1px;
+  padding: 5px;
+}
+
+td {
+  padding: 7px 5px 5px 10px;
+  display: table-cell;
+  .typoBody1();
+}
+
+th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 7px 10px;
+}
+
+th.row {
+  font-weight: bold;
+  text-transform: none;
+}
+
+div[role="button"] {
+  cursor: pointer;
+}
+
+/*Placeholder text in input elements*/
+::-webkit-input-placeholder {
+  color: #999;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: #999;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  color: #999;
+}
+
+:-ms-input-placeholder {
+  color: #999;
+}
+
+//----------------------------------------------------------[ Material Icons ]--
+// Rules for sizing the icon.
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+// Rules for using icons as black on a light background.
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+// Rules for using icons as white on a dark background.
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+
+//-----------------------------------------------------------------[ Buttons ]--
+
+.flat-button-caption {
+  margin-top: 1px;
+  i.material-icons.md-18 {
+    float: left;
+    margin: 2px 5px 0 0;
+  }
+
+  i.material-icons.md-24 {
+    float: left;
+    margin-right: 5px;
+  }
+}
+
+
+
+//---------------------------------------------------------[ Utility Classes ]--
+
+.dom-remove {
+  display: none;
+  visibility: hidden;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clear-fix {
+  clear: both;
+}
+
+.well {
+  margin-left: 0;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.linklike {
+  color: rgb(0, 136, 204);
+  text-decoration: none;
+  cursor: pointer;
+
+}
+
+.linklike:hover {
+  color: rgb(0, 85, 128);
+  text-decoration: underline;
+}
+
