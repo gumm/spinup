@@ -23,7 +23,7 @@ chmod +x ${GOOG_BIN_PATH}/*.py
 
 ${GOOG_BIN_PATH}/depswriter.py \
     --root_with_prefix="public/js/contracts ../../../contracts" \
-    --root_with_prefix="public/js/${PROJECT_NAME} ../../../${PROJECT_NAME}" \
+    --root_with_prefix="public/js/app ../../../app" \
     --root_with_prefix="public/js/bad-library/bad ../../../bad-library/bad"> ${JS_PATH}/deps.js
 
 

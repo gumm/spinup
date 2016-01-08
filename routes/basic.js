@@ -30,7 +30,7 @@ module.exports = {
    */
   home: function(req, res) {
     var app = req.app;
-    res.render('home', {title: app.get('title')});
+    res.render('main/home', {title: app.get('title')});
   }
 
 };

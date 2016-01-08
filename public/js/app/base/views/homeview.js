@@ -53,13 +53,12 @@ app.base.view.Home.prototype.displayPanels = function() {
   this.panA.renderWithTemplate();
 };
 
+
 /**
  * @param {bad.ActionEvent} e Event object.
  */
 app.base.view.Home.prototype.onPanelAction = function(e) {
-
-
-  var panel = /** @type bad.ui.Panel */(e.target);
+  var panel = /** @type {bad.ui.Panel} */(e.target);
   var value = e.getValue();
   var data = e.getData();
   e.stopPropagation();

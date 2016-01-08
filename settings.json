@@ -3,5 +3,16 @@
   "theme": "abstract",
   "jsIsCompiled": true,
   "siteUrl": "http://localhost:3000",
-  "sessionSecret": "mathematical cat cucumber möbius"
+  "sessionSecret": "mathematical cat cucumber möbius",
+  "smtp": {
+    "from": {
+      "user": "spinup",
+      "alias": "Spinup - System",
+      "domain": "should.probably.be.a.domain.name.you.own"
+    },
+    "host": "smtp.server",
+    "port": 2525,
+    "user": "smtpuser",
+    "pass": "smtppass"
+  }
 }

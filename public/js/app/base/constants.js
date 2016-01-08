@@ -12,6 +12,7 @@ app.base.EventType = {
   MENU_HEAD: bad.utils.privateRandom()
 };
 
+
 /**
  * These are events that are edited by vies, and handled at the top level
  * Typically these switch between views.

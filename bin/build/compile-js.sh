@@ -347,7 +347,7 @@ java -server -XX:+TieredCompilation -jar ${CLOSURE_COMPILER_PATH}/compiler.jar \
     ${CLOSURE_LIBRARY_PATH}/ \
     ${JS_PATH}/bad-library/bad/ \
     ${JS_PATH}/contracts/ \
-    ${JS_PATH}/${PROJECT_NAME}/ 2>${BUILD_LOG_FILE}
+    ${JS_PATH}/app/ 2>${BUILD_LOG_FILE}
 
 echo "-----------------------------------------------------"
 NUM_CLIB_FILES=$(grep -o closure-library/ ${COMPILED_OUTPUT_PATH}/${PROJECT_NAME}.min.js.manifest | wc -l)

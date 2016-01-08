@@ -1,4 +1,4 @@
-goog.provide('app.base.ViewManager');
+goog.provide('app.Conductor');
 
 goog.require('app.base.ViewEventType');
 goog.require('app.base.view.Home');
@@ -8,15 +8,24 @@ goog.require('goog.array');
 goog.require('goog.object');
 
 
+
 /**
+ * @param {string=} opt_landing Pass in optional behavior, such as when a
+ *      password is being reset.
  * @constructor
  * @extends {bad.ui.View}
  */
-app.base.ViewManager = function() {
+app.Conductor = function(opt_landing) {
   bad.ui.View.call(this);
 
+  /**
+   * @type {!string}
+   * @private
+   */
+  this.landing_ = opt_landing || 'home';
+
   this.listOfViewEvents_ = [];
-  goog.object.forEach(app.base.ViewEventType, function(v, k) {
+  goog.object.forEach(app.base.ViewEventType, function(v) {
     this.listOfViewEvents_.push(v);
   }, this);
 
@@ -26,22 +35,55 @@ app.base.ViewManager = function() {
    */
   this.user_ = new bad.UserManager();
 };
-goog.inherits(app.base.ViewManager, bad.ui.View);
+goog.inherits(app.Conductor, bad.ui.View);
 
-app.base.ViewManager.prototype.onViewAction = function(e) {
-  var data = e.data;
-  switch (e.type) {
+
+/**
+ * @type {Map}
+ */
+app.Conductor.viewNameMap = new Map();
+app.Conductor.viewNameMap.set('home', app.base.ViewEventType.VIEW_HOME);
+
+
+/**
+ * Shortcut to the landing view.
+ */
+app.Conductor.prototype.goLand = function() {
+  this.hideAllNests();
+  this.selectView_(
+      /** @type {string} */ (app.Conductor.viewNameMap.get(this.landing_)));
+};
+
+
+/**
+ * @param {bad.ui.ViewEvent} e Event object.
+ */
+app.Conductor.prototype.onViewAction = function(e) {
+  this.selectView_(e.type, e.data);
+};
+
+
+/**
+ * @param {string} viewEventType
+ * @param {Object=} opt_data
+ * @private
+ */
+app.Conductor.prototype.selectView_ = function(viewEventType, opt_data) {
+  switch (viewEventType) {
     case app.base.ViewEventType.VIEW_HOME:
-      console.debug('data');
       this.viewHome();
       break;
     default:
-      console.debug('No match for:', e.type);
+      console.debug('No match for:', viewEventType);
   }
 };
 
 
-app.base.ViewManager.prototype.setActiveView = function(view) {
+/**
+ * Make the given view active.
+ * @param {bad.ui.View} view
+ */
+app.Conductor.prototype.setActiveView = function(view) {
   this.activeView_ = view;
 
   this.getHandler().listen(
@@ -53,7 +95,10 @@ app.base.ViewManager.prototype.setActiveView = function(view) {
 
 
 //-------------------------------------------------------------------[ Views ]--
-app.base.ViewManager.prototype.viewHome = function() {
+/**
+ * The default view to land on.
+ */
+app.Conductor.prototype.viewHome = function() {
   /**
    * @type {app.base.view.Home}
    */
@@ -61,12 +106,12 @@ app.base.ViewManager.prototype.viewHome = function() {
   this.switchView(view);
 };
 
-//---------------------------------------------------------[ Views Utilities ]--
 
+//---------------------------------------------------------[ Views Utilities ]--
 /**
  * @param {bad.ui.View} view
  */
-app.base.ViewManager.prototype.switchView = function(view) {
+app.Conductor.prototype.switchView = function(view) {
   this.hideAllNests();
   if (this.activeView_) {
     this.activeView_.dispose();
@@ -83,7 +128,7 @@ app.base.ViewManager.prototype.switchView = function(view) {
 /**
  * Hide all the nests. Presents a single panel.
  */
-app.base.ViewManager.prototype.hideAllNests = function() {
+app.Conductor.prototype.hideAllNests = function() {
   /**
    * @type {Array}
    */

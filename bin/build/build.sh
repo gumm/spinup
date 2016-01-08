@@ -150,6 +150,6 @@ case "${BUILD_JOB}" in
 
     # Lint the customer application files.
     lintapp) echo "Lint ${BUILD_PARM}"
-        ${BUILD_PATH}/lint.sh ${JS_PATH}/${PROJECT_NAME}
+        ${BUILD_PATH}/lint.sh ${JS_PATH}/app
        ;;
 esac
