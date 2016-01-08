@@ -4,6 +4,7 @@
 goog.provide('app.Layout');
 
 goog.require('bad.ui.Layout');
+goog.require('bad.utils');
 goog.require('goog.dom');
 goog.require('goog.events.EventHandler');
 
@@ -28,100 +29,83 @@ goog.inherits(app.Layout, goog.events.EventHandler);
 app.Layout.prototype.initLayout = function(callback) {
 
   /*
+   Here is a nice challenge: Given ASCII art like below,
+   write a parser that can read that and convert it to a data structure
+   like 'outer' variable below. Think something along the lines of
+   Dijkstra's Shunting-yard Algorithm - or maybe something else...
 
-    Horizontal Nests
-    +---+---+---+
-    | L | C | R |
-    +---+---+---+
+   With newlines and the chrome removed, this looks like this:
+   |header(72)||main|||||left(220)|center|right(220)|||||||||||top(50)||||top(50)||||||||||||mid||||mid||||||||||||bot(50)||||bot(50)||||||||||||footer(23)|
 
-    Vertical Nests
-    +---+
-    | T |
-    +---+
-    | M |
-    +---+
-    | B |
-    +---+
+   Shunting-Yard the sit out of that!
+   Split on pipe:
+   ["", "header(72)", "", "main", "", "", "", "", "left(220)", "center", "right(220)", "", "", "", "", "", "", "", "", "", "", "top(50)", "", "", "", "top(50)", "", "", "", "", "", "", "", "", "", "", "", "mid", "", "", "", "mid", "", "", "", "", "", "", "", "", "", "", "", "bot(50)", "", "", "", "bot(50)", "", "", "", "", "", "", "", "", "", "", "", "footer(23)", ""]
 
-    +-----------------------------------------------+
-    |                    header                     |
-    +-----------------------------------------------+
-    |                     main                      |
-    | +--------------+-------------+--------------+ |
-    | |     left     |    center   |     right    | |
-    | | +----------+ |             | +----------+ | |
-    | | |   top    | |             | |   top    | | |
-    | | +----------+ |             | +----------+ | |
-    | | |   mid    | |             | |   mid    | | |
-    | | +----------+ |             | +----------+ | |
-    | | |  bottom  | |             | |  bottom  | | |
-    | | +----------+ |             | +----------+ | |
-    | +--------------+-------------+--------------+ |
-    +-----------------------------------------------+
-    |                    footer                     |
-    +-----------------------------------------------+
+    Split on 2 pipes:
+    ["|header(72)", "main", "", "|left(220)|center|right(220)", "", "", "", "", "|top(50)", "", "top(50)", "", "", "", "", "", "mid", "", "mid", "", "", "", "", "", "bot(50)", "", "bot(50)", "", "", "", "", "", "footer(23)|"]
 
-  */
 
-  var id = 'body-background';
-  var mainCells = ['header', 'main', 'footer'];
-  var innerCellsHorizontal = ['left', 'center', 'right'];
-  var innerCellsVertical = ['top', 'mid', 'bottom'];
-  var topMargin = 0;
-  var rightMargin = 0;
-  var bottomMargin = 0;
-  var leftMargin = 0;
+    "=|header(72)|=|main||===|||left(220)|center|right(220)||||=||=|||||top(50)||||top(50)|||||=||=|||||mid||||mid|||||=||=|||||bot(50)||||bot(50)|||||=||=|||===|=|footer(23)|="
 
-  /**
-   * Create a new layout
-   * @type {bad.ui.Layout}
-   * @private
+    blue = blee.split('=');
+    ["|header(72)|", "|main||", "|||left(220)|center|right(220)||||", "||", "|||||top(50)||||top(50)|||||", "||", "|||||mid||||mid|||||", "||", "|||||bot(50)||||bot(50)|||||", "||", "|||", "|", "|footer(23)|"]
+
+
+   Horizontal Nests
+   +---+---+---+
+   | L | C | R |
+   +---+---+---+
+
+   Vertical Nests
+   +---+
+   | T |
+   +---+
+   | M |
+   +---+
+   | B |
+   +---+
+
+   +-----------------------------------------------+
+   |                    header (72)                |
+   +-----------------------------------------------+
+   |                     main                      |
+   | +--------------+-------------+--------------+ |
+   | |  left (220)  |    center   |  right (220) | |
+   | | +----------+ |             | +----------+ | |
+   | | | top (50) | |             | | top (50) | | |
+   | | +----------+ |             | +----------+ | |
+   | | |    mid   | |             | |    mid   | | |
+   | | +----------+ |             | +----------+ | |
+   | | | bot (50) | |             | | bot (50) | | |
+   | | +----------+ |             | +----------+ | |
+   | +--------------+-------------+--------------+ |
+   +-----------------------------------------------+
+   |                    footer (23)                |
+   +-----------------------------------------------+
+
    */
-  var layout = new bad.ui.Layout(id, mainCells,
-      bad.ui.Layout.Orientation.VERTICAL);
 
-  // Set the defaults for the site.
-  layout.setTarget(goog.dom.getDocument().body);
-  layout.setInitialSize(mainCells[0], 72);
-  layout.setInitialSize(mainCells[2], 23);
-  layout.setDraggerThickness(0);
-  layout.setWidthToViewport(true);
-  layout.setHeightToViewport(true);
-  layout.setMargin(topMargin, rightMargin, bottomMargin, leftMargin);
+  var outerId = bad.utils.privateRandom();
+  var v = bad.ui.Layout.Orientation.VERTICAL;
+  var h = bad.ui.Layout.Orientation.HORIZONTAL;
+  var e = null;
 
-  /**
-   * Create main horizontal layout.
-   * @type {bad.ui.Layout}
-   */
-  var mainHorizontalLayout = layout.setInnerLayout(
-      innerCellsHorizontal,
-      mainCells[1],
-      bad.ui.Layout.Orientation.HORIZONTAL);
-  mainHorizontalLayout.setDraggerThickness(5);
-  mainHorizontalLayout.setInitialSize(innerCellsHorizontal[0], 220);
-  mainHorizontalLayout.setInitialSize(innerCellsHorizontal[2], 220);
+  // Empty Cells
+  var top = ['top', e, [], 50];
+  var mid = ['mid', e, []];
+  var bot = ['bottom', e, [], 50];
+  var head = ['header', e, [], 72];
+  var foot = ['footer', e, [], 23];
+  var cent = ['center', e, []];
 
-  /**
-   * Up-Down Layout in the left.
-   * @type {bad.ui.Layout}
-   */
-  var leftVerticalLayout = mainHorizontalLayout.setInnerLayout(
-      innerCellsVertical,
-      innerCellsHorizontal[0],
-      bad.ui.Layout.Orientation.VERTICAL);
-  leftVerticalLayout.setInitialSize(innerCellsVertical[0], 50);
-  leftVerticalLayout.setInitialSize(innerCellsVertical[2], 50);
+  // Cells with inner layouts
+  var left = ['left', v, [top, mid, bot], 220];
+  var right = ['right', v, [top, mid, bot], 220];
+  var main = ['main', h, [left, cent, right]];
 
-  /**
-   * Up-Down Layout in the right.
-   * @type {bad.ui.Layout}
-   */
-  var rightVerticalLayout = mainHorizontalLayout.setInnerLayout(
-      innerCellsVertical,
-      innerCellsHorizontal[2],
-      bad.ui.Layout.Orientation.VERTICAL);
-  rightVerticalLayout.setInitialSize(innerCellsVertical[0], 50);
-  rightVerticalLayout.setInitialSize(innerCellsVertical[2], 50);
+  // The outer layout structure.
+  var outer = [outerId, v, [head, main, foot]];
+  var layout = this.parseLayoutStructure_(outer);
 
   /**
    * Each if the internal layouts will fire a LAYOUT_READY event, and all
@@ -132,11 +116,72 @@ app.Layout.prototype.initLayout = function(callback) {
    * as this.layout_'s id.
    */
   this.listen(layout, bad.ui.Layout.EventType.LAYOUT_READY, function(e) {
-    if (e.target.getId() === id) {
+    if (e.target.getId() === outerId) {
       callback(layout);
     }
   });
 
   // Create the layout in the DOM
   layout.render();
+};
+
+
+/**
+ * @param {Array} outer
+ * @return {bad.ui.Layout}
+ * @private
+ */
+app.Layout.prototype.parseLayoutStructure_ = function(outer) {
+
+  /**
+   * @param {Array} arr
+   * @return {Array}
+   */
+  var getNameList = function(arr) {
+    return arr.map(function(item) {return item[0];});
+  };
+
+  /**
+   * @param {Array} arr
+   * @param {bad.ui.Layout} layout
+   */
+  var setInitialSize = function(arr, layout) {
+    arr.forEach(function(item) {
+      if (item[3]) {
+        layout.setInitialSize(item[0], item[3]);
+      }
+    });
+  };
+
+  /**
+   * The main layout...
+   * @type {bad.ui.Layout}
+   */
+  var mainLayout = new bad.ui.Layout(outer[0], getNameList(outer[2]), outer[1]);
+  setInitialSize(outer[2], mainLayout);
+  mainLayout.setTarget(goog.dom.getDocument().body);
+  mainLayout.setDraggerThickness(0);
+  mainLayout.setWidthToViewport(true);
+  mainLayout.setHeightToViewport(true);
+  mainLayout.setMargin(0, 0, 0, 0);
+
+  /**
+   * Parse the inner layouts.
+   * @param {Array} c
+   * @param {bad.ui.Layout} l
+   * @return {bad.ui.Layout}
+   */
+  var parseInner = function(c, l) {
+    c.forEach(function(inner) {
+      if (inner[1]) {
+        var nameList = getNameList(inner[2]);
+        var innerLayout = l.setInnerLayout(nameList, inner[0], inner[1]);
+        innerLayout.setDraggerThickness(5);
+        setInitialSize(inner[2], innerLayout);
+        parseInner(inner[2], innerLayout);
+      }
+    });
+    return l;
+  };
+  return parseInner(outer[2], mainLayout);
 };

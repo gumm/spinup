@@ -49,7 +49,7 @@ app.Conductor.viewNameMap.set('home', app.base.ViewEventType.VIEW_HOME);
  * Shortcut to the landing view.
  */
 app.Conductor.prototype.goLand = function() {
-  this.hideAllNests();
+  //this.hideAllNests();
   this.selectView_(
       /** @type {string} */ (app.Conductor.viewNameMap.get(this.landing_)));
 };
@@ -112,7 +112,7 @@ app.Conductor.prototype.viewHome = function() {
  * @param {bad.ui.View} view
  */
 app.Conductor.prototype.switchView = function(view) {
-  this.hideAllNests();
+  //this.hideAllNests();
   if (this.activeView_) {
     this.activeView_.dispose();
   }
