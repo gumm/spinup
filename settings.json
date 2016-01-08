@@ -1,18 +1,18 @@
 {
-  "title": "Your App Name",
+  "title": "Spin Up Your App Name",
+  "siteUrl": "http://localhost:3000",
   "theme": "abstract",
   "jsIsCompiled": true,
-  "siteUrl": "http://localhost:3000",
-  "sessionSecret": "mathematical cat cucumber möbius",
+  "sessionSecret": "spin.up.some.secret.string",
   "smtp": {
     "from": {
-      "user": "spinup",
-      "alias": "Spinup - System",
+      "user": "spin.up.some.user",
+      "alias": "spin.up.some.alias",
       "domain": "should.probably.be.a.domain.name.you.own"
     },
-    "host": "smtp.server",
+    "host": "spin.up.some.smtp.server",
     "port": 2525,
-    "user": "smtpuser",
-    "pass": "smtppass"
+    "user": "spin.up.some.smtp.user",
+    "pass": "spin.up.some.smtp.password"
   }
 }

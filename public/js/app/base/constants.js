@@ -1,7 +1,8 @@
+goog.require('bad.utils');
+
 goog.provide('app.base.EventType');
 goog.provide('app.base.ViewEventType');
 
-goog.require('bad.utils');
 
 /**
  * Constants for panel event.

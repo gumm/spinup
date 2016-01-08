@@ -1,48 +1,31 @@
-var bootstrap = {
+var launch = {
   todo: null,
   permissions: null,
   initialView: null,
   user: null,
   theme: null,
   run: function() {
-    switch (bootstrap.todo) {
+    switch (launch.todo) {
       case 'site':
         (function() {
-          app_.site(bootstrap.landing);
+          //noinspection JSUnresolvedVariable
+          app_.site(launch.landing);
         })();
         break;
       default:
-        console.debug('No match for', bootstrap.todo);
+        console.debug('No match for', launch.todo);
     }
   },
   addApp: function(name) {
-    bootstrap.todo = name;
+    launch.todo = name;
   },
   setDefaults: function(var_args) {
-    bootstrap.landing = arguments[0];
-  },
-  loadScript: function(src, callback) {
-    var head = document.getElementsByTagName('head')[0],
-      script = document.createElement('script');
-    var done = false;
-    script.setAttribute('src', src);
-    script.setAttribute('type', 'text/javascript');
-    script.setAttribute('charset', 'utf-8');
-    script.onload = script.onreadstatechange = function() {
-      if (!done && (!this.readyState ||
-        this.readyState === 'loaded' ||
-        this.readyState === 'complete')) {
-        done = true;
-        script.onload = script.onreadystatechange = null;
-        callback && callback();
-      }
-    };
-    head.insertBefore(script, head.firstChild);
+    launch.landing = arguments[0];
   }
 };
 
-function initScriptLoad() {
-  bootstrap.run();
-}
 
-window.onload = initScriptLoad;
+/**
+ * Once the window has loaded...
+ */
+window.onload = launch.run;

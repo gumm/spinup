@@ -6,6 +6,8 @@ goog.require('bad.ui.View');
 goog.require('contracts.urlMap');
 goog.require('goog.Uri');
 
+
+
 /**
  * @constructor
  * @extends {bad.ui.View}
@@ -15,6 +17,10 @@ app.base.view.Home = function() {
 };
 goog.inherits(app.base.view.Home, bad.ui.View);
 
+
+/**
+ * Configure the panels that is managed by this view.
+ */
 app.base.view.Home.prototype.configurePanels = function() {
   /**
    * @type {bad.ui.Layout}
@@ -32,10 +38,12 @@ app.base.view.Home.prototype.configurePanels = function() {
   this.panA = this.createPanelA_(layout, user);
 };
 
+
 /**
  * @param {bad.ui.Layout} layout
  * @param {bad.UserManager} user
  * @return {app.base.panel.Main}
+ * @private
  */
 app.base.view.Home.prototype.createPanelA_ = function(layout, user) {
   var panA = new app.base.panel.Main();
@@ -49,6 +57,9 @@ app.base.view.Home.prototype.createPanelA_ = function(layout, user) {
 };
 
 
+/**
+ * Entry point once the view is ready. Renders the panels.
+ */
 app.base.view.Home.prototype.displayPanels = function() {
   this.panA.renderWithTemplate();
 };
