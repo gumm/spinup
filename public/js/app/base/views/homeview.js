@@ -35,7 +35,7 @@ app.base.view.Home.prototype.configurePanels = function() {
   /**
    * @type {app.base.panel.Main}
    */
-  //this.panA = this.createPanelA_(layout, user);
+  this.panA = this.createPanelA_(layout, user);
 };
 
 
