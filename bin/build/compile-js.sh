@@ -308,10 +308,11 @@ PROJECT_NAME=$2
 SITE_VERSION=$3
 JS_PATH=$4
 CLOSURE_LIBRARY_PATH=$5
-CLOSURE_COMPILER_PATH=$6
-COMPILED_OUTPUT_PATH=$7
-BUILD_LOG_FILE=$8
-BUILD_PARM=$9
+BAD_LIBRARY_PATH=$6
+CLOSURE_COMPILER_PATH=$7
+COMPILED_OUTPUT_PATH=$8
+BUILD_LOG_FILE=$9
+BUILD_PARM=$10
 
 echo "-----------------------------------------------------"
 
@@ -345,7 +346,7 @@ java -server -XX:+TieredCompilation -jar ${CLOSURE_COMPILER_PATH}/compiler.jar \
     --externs               ${CLOSURE_COMPILER_PATH}/contrib/externs/maps/google_maps_api_v3_22.js \
     --output_wrapper        "(function(){%output%})();//# sourceMappingURL=${PROJECT_NAME}.min.${SITE_VERSION}.js.map" \
     ${CLOSURE_LIBRARY_PATH}/ \
-    ${JS_PATH}/bad-library/bad/ \
+    ${BAD_LIBRARY_PATH}/ \
     ${JS_PATH}/contracts/ \
     ${JS_PATH}/app/ 2>${BUILD_LOG_FILE}
 

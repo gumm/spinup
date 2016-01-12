@@ -50,8 +50,7 @@ if [ ! -d "${JS_PATH}/bad-library/bad" ]; then
     echo "There is no symlink to the Bad Library. Make it now"
     ln -sf ${NODE_MODULES}/bad-library ${JS_PATH}/bad-library
 fi
-CLOSURE_LIBRARY_PATH=${JS_PATH}/google-closure-library/closure
-GOOG_BIN_PATH=${CLOSURE_LIBRARY_PATH}/bin/build
+BAD_LIBRARY_PATH=${JS_PATH}/bad-library/bad
 
 #echo "JS_PATH:                  ${JS_PATH}"
 #echo "CSS_PATH:                 ${CSS_PATH}"
@@ -125,6 +124,7 @@ case "${BUILD_JOB}" in
             ${SITE_VERSION} \
             ${JS_PATH} \
             ${CLOSURE_LIBRARY_PATH} \
+            ${BAD_LIBRARY_PATH} \
             ${CLOSURE_COMPILER_PATH} \
             ${COMPILED_OUTPUT_PATH} \
             ${BUILD_LOG_FILE} \
