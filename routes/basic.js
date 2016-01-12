@@ -1,4 +1,5 @@
 var helper = require('./helper');
+var shapeToLayout = require('../lib/layout/shape_to_layout');
 
 module.exports = {
 
@@ -9,11 +10,14 @@ module.exports = {
    */
   slash: function(req, res) {
     var setup = req.app.get('setup');
+    var shape = shapeToLayout('some_random_id', setup.shape);
+    console.log(shape);
     var initDetail = {
       title: setup.title,
       theme: setup.theme,
       version: setup.version,
-      appName: setup.appName
+      appName: setup.appName,
+      shape: shape
     };
 
     if (setup['jsIsCompiled']) {

@@ -4,12 +4,14 @@ var launch = {
   initialView: null,
   user: null,
   theme: null,
+  shape: null,
+  landing: null,
   run: function() {
     switch (launch.todo) {
       case 'site':
         (function() {
           //noinspection JSUnresolvedVariable
-          app_.site(launch.landing);
+          app_.site(launch.landing, launch.shape);
         })();
         break;
       default:
@@ -19,9 +21,13 @@ var launch = {
   addApp: function(name) {
     launch.todo = name;
   },
-  setDefaults: function(var_args) {
-    launch.landing = arguments[0];
+  setShape: function(shape) {
+    launch.shape = shape;
+  },
+  setLanding: function(landing) {
+    launch.landing = landing;
   }
+
 };
 
 

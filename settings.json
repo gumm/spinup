@@ -2,6 +2,7 @@
   "title": "Spin Up Your App Name",
   "siteUrl": "http://localhost:3000",
   "theme": "abstract",
+  "shape": "basic",
   "jsIsCompiled": true,
   "sessionSecret": "spin.up.some.secret.string",
   "smtp": {

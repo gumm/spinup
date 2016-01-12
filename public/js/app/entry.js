@@ -9,8 +9,9 @@ goog.require('goog.net.XhrManager');
 /**
  * Init the site
  * @param {string=} opt_landing Where the site should land.
+ * @param {Array=} opt_shape A data structure defining the shape of the site.
  */
-entry.initSite = function(opt_landing) {
+entry.initSite = function(opt_landing, opt_shape) {
 
   /**
    * @type {!bad.Net}
@@ -38,7 +39,10 @@ entry.initSite = function(opt_landing) {
    * @type {app.Layout}
    */
   var layout = new app.Layout();
-  layout.initLayout(onLayoutReady);
+  if (opt_shape) {
+    layout.setShape(opt_shape);
+  }
+  layout.initLayout(onLayoutReady, 5, 5);
 };
 
 

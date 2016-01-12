@@ -35,7 +35,7 @@ app.base.view.Home.prototype.configurePanels = function() {
   /**
    * @type {app.base.panel.Main}
    */
-  this.panA = this.createPanelA_(layout, user);
+  //this.panA = this.createPanelA_(layout, user);
 };
 
 
@@ -61,7 +61,7 @@ app.base.view.Home.prototype.createPanelA_ = function(layout, user) {
  * Entry point once the view is ready. Renders the panels.
  */
 app.base.view.Home.prototype.displayPanels = function() {
-  this.panA.renderWithTemplate();
+  this.panA ? this.panA.renderWithTemplate() : goog.nullFunction();
 };
 
 

@@ -12,5 +12,6 @@ block bottomScripts
 
   script(src = '/js/launch.js')
   script.
-      launch.setDefaults('#{landing}')
-      launch.addApp('site')
+    launch.setShape(!{JSON.stringify(shape)})
+    launch.setLanding('#{landing}')
+    launch.addApp('site')
