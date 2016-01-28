@@ -338,17 +338,18 @@ cd ${COMPILED_OUTPUT_PATH}
 
 java -server -XX:+TieredCompilation -jar ${CLOSURE_COMPILER_PATH}/compiler.jar \
     --flagfile              ${WORKSPACE}/bin/build/options/compile.ini \
-    --closure_entry_point   "entry" \
     --js_output_file        ${PROJECT_NAME}.min.js \
     --output_manifest       ${PROJECT_NAME}.min.js.manifest \
     --define                goog.DEBUG=false \
     --source_map_location_mapping "${WORKSPACE}/public|" \
     --externs               ${CLOSURE_COMPILER_PATH}/contrib/externs/maps/google_maps_api_v3_22.js \
     --output_wrapper        "(function(){%output%})();//# sourceMappingURL=${PROJECT_NAME}.min.${SITE_VERSION}.js.map" \
-    ${CLOSURE_LIBRARY_PATH}/ \
-    ${BAD_LIBRARY_PATH}/ \
-    ${JS_PATH}/contracts/ \
-    ${JS_PATH}/app/ 2>${BUILD_LOG_FILE}
+    --js=${CLOSURE_LIBRARY_PATH}/**.js   \
+    --js=${BAD_LIBRARY_PATH}/**.js       \
+    --js=${JS_PATH}/contracts/**.js      \
+    --js=${JS_PATH}/app/**.js            \
+    --js='!../js/**_test.js'             \
+    --closure_entry_point   "entry" 2>${BUILD_LOG_FILE}
 
 echo "-----------------------------------------------------"
 NUM_CLIB_FILES=$(grep -o closure-library/ ${COMPILED_OUTPUT_PATH}/${PROJECT_NAME}.min.js.manifest | wc -l)
