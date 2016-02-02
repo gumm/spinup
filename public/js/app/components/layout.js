@@ -60,10 +60,19 @@ app.Layout.prototype.initLayout = function(callback, opt_dtMain, opt_dtSub) {
   layout.render();
 };
 
+
+/**
+ * @param {!Array} shape
+ */
 app.Layout.prototype.setShape = function(shape) {
   this.shape_ = shape;
 };
 
+
+/**
+ * @return {!Array}
+ * @private
+ */
 app.Layout.prototype.getLayoutStructure_ = function() {
 
   /*

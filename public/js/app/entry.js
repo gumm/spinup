@@ -9,7 +9,7 @@ goog.require('goog.net.XhrManager');
 /**
  * Init the site
  * @param {string=} opt_landing Where the site should land.
- * @param {Array=} opt_shape A data structure defining the shape of the site.
+ * @param {!Array=} opt_shape A data structure defining the shape of the site.
  */
 entry.initSite = function(opt_landing, opt_shape) {
 
@@ -48,7 +48,7 @@ entry.initSite = function(opt_landing, opt_shape) {
 
 
 /**
- * @type {Object}
+ * @type {{site: !Function}}
  */
 entry.init = {
   'site': entry.initSite

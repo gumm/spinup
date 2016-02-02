@@ -7,7 +7,7 @@ goog.require('goog.dom');
 
 /**
  * The home panel.
- * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
+ * @param {!goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @extends {bad.ui.Panel}
  * @constructor
  */

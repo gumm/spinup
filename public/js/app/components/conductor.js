@@ -65,7 +65,7 @@ app.Conductor.prototype.onViewAction = function(e) {
 
 /**
  * @param {!string} viewEventType
- * @param {Object=} opt_data
+ * @param {!Object=} opt_data
  * @private
  */
 app.Conductor.prototype.selectView_ = function(viewEventType, opt_data) {
@@ -81,7 +81,7 @@ app.Conductor.prototype.selectView_ = function(viewEventType, opt_data) {
 
 /**
  * Make the given view active.
- * @param {bad.ui.View} view
+ * @param {!bad.ui.View} view
  */
 app.Conductor.prototype.setActiveView = function(view) {
   this.activeView_ = view;
@@ -100,7 +100,7 @@ app.Conductor.prototype.setActiveView = function(view) {
  */
 app.Conductor.prototype.viewHome = function() {
   /**
-   * @type {app.base.view.Home}
+   * @type {!app.base.view.Home}
    */
   var view = new app.base.view.Home();
   this.switchView(view);
@@ -136,9 +136,6 @@ app.Conductor.prototype.switchView = function(view) {
 app.Conductor.prototype.hideAllNests = function() {
   var layout = this.getLayout();
   if (layout) {
-    /**
-     * @type {Array}
-     */
     var nests = [
       layout.getNest('main', 'left'),
       layout.getNest('main', 'left', 'top'),

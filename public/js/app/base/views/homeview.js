@@ -28,7 +28,7 @@ app.base.view.Home.prototype.configurePanels = function() {
   if (layout && user) {
 
     /**
-     * @type {app.base.panel.Main}
+     * @type {!app.base.panel.Main}
      */
     this.panA = this.createPanelA_(layout, user);
   }
@@ -38,7 +38,7 @@ app.base.view.Home.prototype.configurePanels = function() {
 /**
  * @param {!bad.ui.Layout} layout
  * @param {!bad.UserManager} user
- * @return {app.base.panel.Main}
+ * @return {!app.base.panel.Main}
  * @private
  */
 app.base.view.Home.prototype.createPanelA_ = function(layout, user) {

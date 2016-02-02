@@ -377,7 +377,6 @@ java -server -XX:+TieredCompilation -jar ${CLOSURE_COMPILER_PATH}/compiler.jar \
     --dependency_mode=STRICT                         \
     --new_type_inf                                   \
     --jscomp_warning=*                               \
-    --jscomp_off            lintChecks               \
     --entry_point=goog:entry 2>${BUILD_LOG_FILE}
 
 echo "-----------------------------------------------------"
