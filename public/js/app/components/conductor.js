@@ -30,7 +30,7 @@ app.Conductor = function(opt_landing) {
   }, this);
 
   /**
-   * @type {bad.UserManager}
+   * @type {!bad.UserManager}
    * @private
    */
   this.user_ = new bad.UserManager();
@@ -39,7 +39,7 @@ goog.inherits(app.Conductor, bad.ui.View);
 
 
 /**
- * @type {Map}
+ * @type {!Map}
  */
 app.Conductor.viewNameMap = new Map();
 app.Conductor.viewNameMap.set('home', app.base.ViewEventType.VIEW_HOME);
@@ -51,12 +51,12 @@ app.Conductor.viewNameMap.set('home', app.base.ViewEventType.VIEW_HOME);
 app.Conductor.prototype.goLand = function() {
   //this.hideAllNests();
   this.selectView_(
-      /** @type {string} */ (app.Conductor.viewNameMap.get(this.landing_)));
+      /** @type {!string} */ (app.Conductor.viewNameMap.get(this.landing_)));
 };
 
 
 /**
- * @param {bad.ui.ViewEvent} e Event object.
+ * @param {!bad.ui.ViewEvent} e Event object.
  */
 app.Conductor.prototype.onViewAction = function(e) {
   this.selectView_(e.type, e.data);
@@ -64,7 +64,7 @@ app.Conductor.prototype.onViewAction = function(e) {
 
 
 /**
- * @param {string} viewEventType
+ * @param {!string} viewEventType
  * @param {Object=} opt_data
  * @private
  */
@@ -109,19 +109,24 @@ app.Conductor.prototype.viewHome = function() {
 
 //---------------------------------------------------------[ Views Utilities ]--
 /**
- * @param {bad.ui.View} view
+ * @param {!bad.ui.View} view
  */
 app.Conductor.prototype.switchView = function(view) {
-  //this.hideAllNests();
-  if (this.activeView_) {
-    this.activeView_.dispose();
+  var layout = this.getLayout();
+  var xMan = this.getXMan();
+  if (layout && xMan) {
+    if (this.activeView_) {
+      this.activeView_.dispose();
+    }
+    this.activeView_ = view;
+    this.setActiveView(this.activeView_);
+    this.activeView_.setLayout(layout);
+    this.activeView_.setXMan(xMan);
+    this.activeView_.setUser(this.user_);
+    this.activeView_.render();
+  } else {
+    throw 'Can not switch views. The layout is undefined.';
   }
-  this.activeView_ = view;
-  this.setActiveView(this.activeView_);
-  this.activeView_.setLayout(this.layout_);
-  this.activeView_.setXMan(this.xMan_);
-  this.activeView_.setUser(this.user_);
-  this.activeView_.render();
 };
 
 
@@ -129,20 +134,25 @@ app.Conductor.prototype.switchView = function(view) {
  * Hide all the nests. Presents a single panel.
  */
 app.Conductor.prototype.hideAllNests = function() {
-  /**
-   * @type {Array}
-   */
-  var nests = [
-    this.layout_.getNest('main', 'left'),
-    this.layout_.getNest('main', 'left', 'top'),
-    this.layout_.getNest('main', 'left', 'bottom'),
-    this.layout_.getNest('main', 'right'),
-    this.layout_.getNest('main', 'right', 'top'),
-    this.layout_.getNest('main', 'right', 'bottom')
-  ];
-  goog.array.forEach(nests, function(nest) {
-    nest.hide();
-  }, this);
+  var layout = this.getLayout();
+  if (layout) {
+    /**
+     * @type {Array}
+     */
+    var nests = [
+      layout.getNest('main', 'left'),
+      layout.getNest('main', 'left', 'top'),
+      layout.getNest('main', 'left', 'bottom'),
+      layout.getNest('main', 'right'),
+      layout.getNest('main', 'right', 'top'),
+      layout.getNest('main', 'right', 'bottom')
+    ];
+    goog.array.forEach(nests, function(nest) {
+      nest.hide();
+    }, this);
+  } else {
+    throw 'Can not hide all nests. Layout is undefined.';
+  }
 };
 
 

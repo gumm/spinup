@@ -1,5 +1,5 @@
 
-require('./public/js/google-closure-library/closure/goog/bootstrap/nodejs');
+require('./public/js/linked-libs/google-closure-library/closure/goog/bootstrap/nodejs');
 require('./deps.js');
 goog.require('contracts.urlMap');
 

@@ -1,7 +1,3 @@
-# Local sym-linked directories to node modules
-/public/js/google-closure-library
-/public/js/bad-library
-
 # Compiled JS and CSS
 /public/js/deps.js
 /public/compiled
@@ -18,3 +14,6 @@ logs
 /settings_local.json
 /deps.js
 
+# Local sym-linked directories to node modules
+/public/js/linked-libs/bad-library
+/public/js/linked-libs/google-closure-library

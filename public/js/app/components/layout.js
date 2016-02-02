@@ -25,7 +25,7 @@ goog.inherits(app.Layout, goog.events.EventHandler);
 
 /**
  * Create the layout component.
- * @param {function(bad.ui.Layout): *} callback
+ * @param {!function(!bad.ui.Layout):undefined} callback
  * @param {number=} opt_dtMain The main layout dragger thickness. When set to
  *  zero, the layout appears (and is functionally) static from a user
  *  perspective. Nests can still be open, closed, hidden and re-sized
@@ -133,25 +133,25 @@ app.Layout.prototype.getLayoutStructure_ = function() {
 
 
 /**
- * @param {Array} outer
+ * @param {!Array} outer
  * @param {!number} dtMain The main layout dragger thickness.
  * @param {!number} dtSub The main layout dragger thickness.
- * @return {bad.ui.Layout}
+ * @return {!bad.ui.Layout}
  * @private
  */
 app.Layout.prototype.parseLayoutStructure_ = function(outer, dtMain, dtSub) {
 
   /**
-   * @param {Array} arr
-   * @return {Array}
+   * @param {!Array} arr
+   * @return {!Array}
    */
   var getNameList = function(arr) {
     return arr.map(function(item) {return item[0];});
   };
 
   /**
-   * @param {Array} arr
-   * @param {bad.ui.Layout} layout
+   * @param {!Array} arr
+   * @param {!bad.ui.Layout} layout
    */
   var setInitialSize = function(arr, layout) {
     arr.forEach(function(item) {
@@ -163,21 +163,24 @@ app.Layout.prototype.parseLayoutStructure_ = function(outer, dtMain, dtSub) {
 
   /**
    * The main layout...
-   * @type {bad.ui.Layout}
+   * @type {!bad.ui.Layout}
    */
   var mainLayout = new bad.ui.Layout(outer[0], getNameList(outer[2]), outer[1]);
-  setInitialSize(outer[2], mainLayout);
-  mainLayout.setTarget(goog.dom.getDocument().body);
-  mainLayout.setDraggerThickness(dtMain);
-  mainLayout.setWidthToViewport(true);
-  mainLayout.setHeightToViewport(true);
-  mainLayout.setMargin(0, 0, 0, 0);
+  var bodyEl = goog.dom.getDocument().body;
+  if (bodyEl) {
+    setInitialSize(outer[2], mainLayout);
+    mainLayout.setTarget(bodyEl);
+    mainLayout.setDraggerThickness(dtMain);
+    mainLayout.setWidthToViewport(true);
+    mainLayout.setHeightToViewport(true);
+    mainLayout.setMargin(0, 0, 0, 0);
+  }
 
   /**
    * Parse the inner layouts.
-   * @param {Array} c
-   * @param {bad.ui.Layout} l
-   * @return {bad.ui.Layout}
+   * @param {!Array} c
+   * @param {!bad.ui.Layout} l
+   * @return {!bad.ui.Layout}
    */
   var parseInner = function(c, l) {
     c.forEach(function(inner) {

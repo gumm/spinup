@@ -22,26 +22,22 @@ goog.inherits(app.base.view.Home, bad.ui.View);
  * Configure the panels that is managed by this view.
  */
 app.base.view.Home.prototype.configurePanels = function() {
-  /**
-   * @type {bad.ui.Layout}
-   */
+
   var layout = this.getLayout();
-
-  /**
-   * @type {bad.UserManager}
-   */
   var user = this.getUser();
+  if (layout && user) {
 
-  /**
-   * @type {app.base.panel.Main}
-   */
-  this.panA = this.createPanelA_(layout, user);
+    /**
+     * @type {app.base.panel.Main}
+     */
+    this.panA = this.createPanelA_(layout, user);
+  }
 };
 
 
 /**
- * @param {bad.ui.Layout} layout
- * @param {bad.UserManager} user
+ * @param {!bad.ui.Layout} layout
+ * @param {!bad.UserManager} user
  * @return {app.base.panel.Main}
  * @private
  */
@@ -66,10 +62,10 @@ app.base.view.Home.prototype.displayPanels = function() {
 
 
 /**
- * @param {bad.ActionEvent} e Event object.
+ * @param {!bad.ActionEvent} e Event object.
  */
 app.base.view.Home.prototype.onPanelAction = function(e) {
-  var panel = /** @type {bad.ui.Panel} */(e.target);
+  var panel = /** @type {!bad.ui.Panel} */(e.target);
   var value = e.getValue();
   var data = e.getData();
   e.stopPropagation();

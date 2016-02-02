@@ -1,83 +1,67 @@
 #!/bin/bash
 
+# ---------------------------------------------------------------[ Variables ]--
+# Passed in
 WORKSPACE=$1
 BUILD_JOB=$2
 BUILD_PARM=$3
 
-echo "WORKSPACE:    ${WORKSPACE}"
-echo "BUILD_JOB:    ${BUILD_JOB}"
-echo "BUILD_PARM:   ${BUILD_PARM}"
-echo ""
-
-#echo "----------------------------------------- [ Relative to the workspace ]--"
+# Derived
 BUILD_PATH=${WORKSPACE}/bin/build
 BUILD_LOG_PATH=${BUILD_PATH}/log
 BUILD_LOG_FILE=${BUILD_LOG_PATH}/last_compile.log
 NODE_ROOT=${WORKSPACE}/www
 NODE_MODULES=${WORKSPACE}/node_modules
 PUBLIC_PATH=${WORKSPACE}/public
-
-# Make sure the logfile is available. This is create here in the build directory
-mkdir -p ${BUILD_LOG_PATH}
-touch ${BUILD_LOG_FILE}
-
-#echo "BUILD_PATH:           ${BUILD_PATH}"
-#echo "BUILD_LOG_PATH:       ${BUILD_LOG_PATH}"
-#echo "BUILD_LOG_FILE:       ${BUILD_LOG_FILE}"
-#echo "NODE_ROOT:            ${NODE_ROOT}"
-#echo "NODE_MODULES:         ${NODE_MODULES}"
-#echo "PUBLIC_PATH:          ${PUBLIC_PATH}"
-#echo ""
-
-#echo "-------------------------------------- [ Relative to the public space ]--"
 JS_PATH=${PUBLIC_PATH}/js
+LINKED_LIBS_PATH=${PUBLIC_PATH}/js/linked-libs
 CSS_PATH=${PUBLIC_PATH}/css
 COMPILED_OUTPUT_PATH=${PUBLIC_PATH}/compiled
+CLOSURE_COMPILER_PATH=${NODE_MODULES}/google-closure-compiler
+LESS_COMPILER=${NODE_MODULES}/less/bin/lessc
+
+# Read in from package.json file
+PROJECT_NAME=`grep name ${WORKSPACE}/package.json | cut -f4 -d'"'`
+SITE_VERSION=`grep version ${WORKSPACE}/package.json | cut -f4 -d'"'`
+
+# --------------------------------------------------------[ Output Locations ]--
+# Make sure the logfile is available.
+# This is create here in the build directory
+mkdir -p ${BUILD_LOG_PATH}
+touch ${BUILD_LOG_FILE}
 
 # Make sure the compiled output directory exists
 mkdir -p ${COMPILED_OUTPUT_PATH}
 
-# Make sure the Google Closure Library is sym-linked into the public js space.
-if [ ! -d "${JS_PATH}/google-closure-library/closure" ]; then
-    echo "There is no symlink to the Closure Library. Make it now"
-    ln -sf ${NODE_MODULES}/google-closure-library ${JS_PATH}/google-closure-library
-fi
-CLOSURE_LIBRARY_PATH=${JS_PATH}/google-closure-library/closure
-GOOG_BIN_PATH=${CLOSURE_LIBRARY_PATH}/bin/build
-
-# Make sure the Bad Library is sym-linked into the public js space.
-if [ ! -d "${JS_PATH}/bad-library/bad" ]; then
-    echo "There is no symlink to the Bad Library. Make it now"
-    ln -sf ${NODE_MODULES}/bad-library ${JS_PATH}/bad-library
-fi
-BAD_LIBRARY_PATH=${JS_PATH}/bad-library/bad
-
-#echo "JS_PATH:                  ${JS_PATH}"
-#echo "CSS_PATH:                 ${CSS_PATH}"
-#echo "COMPILED_OUTPUT_PATH:     ${COMPILED_OUTPUT_PATH}"
-#echo "CLOSURE_LIBRARY_PATH:     ${CLOSURE_LIBRARY_PATH}"
-#echo "GOOG_BIN_PATH:            ${GOOG_BIN_PATH}"
-#echo ""
-
-#echo "---------------------------------------[ Relative to the node modules ]--"
-CLOSURE_COMPILER_PATH=${NODE_MODULES}/google-closure-compiler
-LESS_COMPILER=${NODE_MODULES}/less/bin/lessc
-
-#echo "CLOSURE_COMPILER_PATH:    ${CLOSURE_COMPILER_PATH}"
-#echo "LESS_COMPILER:            ${LESS_COMPILER}"
-#echo ""
-
-echo "-------------------------------------------------------[ Project Vars ]--"
-PROJECT_NAME=`grep name ${WORKSPACE}/package.json | cut -f4 -d'"'`
-SITE_VERSION=`grep version ${WORKSPACE}/package.json | cut -f4 -d'"'`
-
+# Make sure the linked library paths exists
+mkdir -p ${LINKED_LIBS_PATH}
 
 # Make sure the project js directory exists.
 mkdir -p ${JS_PATH}/${PROJECT_NAME}
 
+# -------------------------------------------------------[ Sym Linked Output ]--
+# Make sure the Google Closure Library is
+# sym-linked into the public js space.
+if [ ! -d "${LINKED_LIBS_PATH}/google-closure-library/closure" ]; then
+    echo "There is no symlink to the Closure Library. Make it now"
+    ln -sf ${NODE_MODULES}/google-closure-library ${LINKED_LIBS_PATH}/google-closure-library
+fi
+CLOSURE_LIBRARY_PATH=${LINKED_LIBS_PATH}/google-closure-library/closure
+GOOG_BIN_PATH=${CLOSURE_LIBRARY_PATH}/bin/build
 
+# Make sure the Bad Library is sym-linked into the public js space.
+if [ ! -d "${LINKED_LIBS_PATH}/bad-library/bad" ]; then
+    echo "There is no symlink to the Bad Library. Make it now"
+    ln -sf ${NODE_MODULES}/bad-library ${LINKED_LIBS_PATH}/bad-library
+fi
+BAD_LIBRARY_PATH=${LINKED_LIBS_PATH}/bad-library/bad
+
+echo "--------------------------------------------------------[ Building... ]--"
 echo "PROJECT_NAME: ${PROJECT_NAME}"
 echo "SITE_VERSION: ${SITE_VERSION}"
+echo "WORKSPACE:    ${WORKSPACE}"
+echo "BUILD_JOB:    ${BUILD_JOB}"
+echo "BUILD_PARM:   ${BUILD_PARM}"
 echo ""
 
 case "${BUILD_JOB}" in

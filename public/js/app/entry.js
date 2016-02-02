@@ -20,23 +20,24 @@ entry.initSite = function(opt_landing, opt_shape) {
 
   /**
    * A manager that collects and acts on events from views.
-   * @type {app.Conductor}
+   * @type {!app.Conductor}
    */
   var conductor = new app.Conductor(opt_landing);
 
   /**
    * Once the layout is ready, it fires a final layout ready event that
    * brings us here.
-   * @param {bad.ui.Layout} layout
+   * @param {!bad.ui.Layout} layout
    */
   var onLayoutReady = function(layout) {
     conductor.setXMan(xMan);
     conductor.setLayout(layout);
-    conductor.goLand();
+    //conductor.goLand();
+    console.debug(layout);
   };
 
   /**
-   * @type {app.Layout}
+   * @type {!app.Layout}
    */
   var layout = new app.Layout();
   if (opt_shape) {
