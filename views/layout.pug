@@ -3,11 +3,10 @@ html
   head
     title= title
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
-    - var cssref = String(`compiled/${theme}.min.${version}.css`)
     link(
       id='pagestyle',
       rel='stylesheet',
-      href=cssref)
+      href=`compiled/${theme}.min.${version}.css`)
     block head
 
   body
