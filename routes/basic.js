@@ -16,7 +16,8 @@ module.exports = {
       theme: setup.theme,
       version: setup.version,
       appName: setup.appName,
-      shape: shape
+      shape: shape,
+      cssHref: `compiled/${setup.theme}.min.${setup.version}.css`
     };
 
     if (setup['jsIsCompiled']) {

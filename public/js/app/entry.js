@@ -16,33 +16,31 @@ entry.initSite = function(opt_landing, opt_shape) {
   /**
    * @type {!bad.Net}
    */
-  var xMan = new bad.Net(new goog.net.XhrManager(0, null, 1, 6, 0));
+  const xMan = new bad.Net(new goog.net.XhrManager(0, null, 1, 6, 0));
 
   /**
    * A manager that collects and acts on events from views.
    * @type {!app.Conductor}
    */
-  var conductor = new app.Conductor(opt_landing);
+  const conductor = new app.Conductor(opt_landing);
 
   /**
    * Once the layout is ready, it fires a final layout ready event that
    * brings us here.
    * @param {!bad.ui.Layout} layout
    */
-  var onLayoutReady = function(layout) {
+  const onLayoutReady = layout => {
     conductor.setXMan(xMan);
     conductor.setLayout(layout);
     // conductor.goLand();
-    console.debug(layout);
+    console.debug(opt_landing);
   };
 
   /**
    * @type {!app.Layout}
    */
-  var layout = new app.Layout();
-  if (opt_shape) {
-    layout.setShape(opt_shape);
-  }
+  const layout = new app.Layout();
+  opt_shape && layout.setShape(opt_shape);
   layout.initLayout(onLayoutReady, 5, 5);
 };
 
