@@ -25,7 +25,7 @@
     "express-session": "^1.13.0",
     "google-closure-compiler": "*",
     "google-closure-library": "*",
-    "jade": "~1.11.0",
+    "pug": "*",
     "less": "^2.5.3",
     "less-middleware": "^2.0.1",
     "less-plugin-clean-css": "^1.5.1",

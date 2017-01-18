@@ -155,7 +155,7 @@ app.Layout.prototype.parseLayoutStructure_ = function(outer, dtMain, dtSub) {
    * @return {!Array}
    */
   var getNameList = function(arr) {
-    return arr.map(function(item) {return item[0];});
+    return arr.map(function(item) { return item[0]; });
   };
 
   /**

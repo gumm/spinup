@@ -49,7 +49,7 @@ app.Conductor.viewNameMap.set('home', app.base.ViewEventType.VIEW_HOME);
  * Shortcut to the landing view.
  */
 app.Conductor.prototype.goLand = function() {
-  //this.hideAllNests();
+  // this.hideAllNests();
   this.selectView_(
       /** @type {!string} */ (app.Conductor.viewNameMap.get(this.landing_)));
 };
@@ -87,10 +87,7 @@ app.Conductor.prototype.setActiveView = function(view) {
   this.activeView_ = view;
 
   this.getHandler().listen(
-      this.activeView_,
-      this.listOfViewEvents_,
-      this.onViewAction
-  );
+      this.activeView_, this.listOfViewEvents_, this.onViewAction);
 };
 
 
@@ -137,19 +134,13 @@ app.Conductor.prototype.hideAllNests = function() {
   var layout = this.getLayout();
   if (layout) {
     var nests = [
-      layout.getNest('main', 'left'),
-      layout.getNest('main', 'left', 'top'),
-      layout.getNest('main', 'left', 'bottom'),
-      layout.getNest('main', 'right'),
+      layout.getNest('main', 'left'), layout.getNest('main', 'left', 'top'),
+      layout.getNest('main', 'left', 'bottom'), layout.getNest('main', 'right'),
       layout.getNest('main', 'right', 'top'),
       layout.getNest('main', 'right', 'bottom')
     ];
-    goog.array.forEach(nests, function(nest) {
-      nest.hide();
-    }, this);
+    goog.array.forEach(nests, function(nest) { nest.hide(); }, this);
   } else {
     throw 'Can not hide all nests. Layout is undefined.';
   }
 };
-
-

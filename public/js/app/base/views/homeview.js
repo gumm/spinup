@@ -26,7 +26,6 @@ app.base.view.Home.prototype.configurePanels = function() {
   var layout = this.getLayout();
   var user = this.getUser();
   if (layout && user) {
-
     /**
      * @type {!app.base.panel.Main}
      */
@@ -46,8 +45,8 @@ app.base.view.Home.prototype.createPanelA_ = function(layout, user) {
   panA.setUri(new goog.Uri(contracts.urlMap.MAIN.HOME));
   panA.setUser(user);
   panA.setNestAsTarget(layout.getNest('main', 'center'));
-  panA.setBeforeReadyCallback(goog.bind(
-      panA.dispatchActionEvent, panA, 'MAIN_READY'));
+  panA.setBeforeReadyCallback(
+      goog.bind(panA.dispatchActionEvent, panA, 'MAIN_READY'));
   this.addPanelToView('home', panA);
   return panA;
 };
@@ -65,13 +64,12 @@ app.base.view.Home.prototype.displayPanels = function() {
  * @param {!bad.ActionEvent} e Event object.
  */
 app.base.view.Home.prototype.onPanelAction = function(e) {
-  var panel = /** @type {!bad.ui.Panel} */(e.target);
+  var panel = /** @type {!bad.ui.Panel} */ (e.target);
   var value = e.getValue();
   var data = e.getData();
   e.stopPropagation();
 
   switch (value) {
-
     case bad.ui.EventType.READY:
       console.debug('SIMPLE PANEL READY', panel);
       break;

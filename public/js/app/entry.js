@@ -32,7 +32,7 @@ entry.initSite = function(opt_landing, opt_shape) {
   var onLayoutReady = function(layout) {
     conductor.setXMan(xMan);
     conductor.setLayout(layout);
-    //conductor.goLand();
+    // conductor.goLand();
     console.debug(layout);
   };
 
@@ -54,5 +54,3 @@ entry.init = {
   'site': entry.initSite
 };
 goog.exportSymbol('app_', entry.init);
-
-
