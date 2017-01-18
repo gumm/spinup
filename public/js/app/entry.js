@@ -16,7 +16,8 @@ entry.initSite = function(opt_landing, opt_shape) {
   /**
    * @type {!bad.Net}
    */
-  var xMan = new bad.Net(new goog.net.XhrManager(0, null, 1, 6, 0));
+  var xMan = new bad.Net(
+    new goog.net.XhrManager(0, null, 1, 6, 0));
 
   /**
    * A manager that collects and acts on events from views.
