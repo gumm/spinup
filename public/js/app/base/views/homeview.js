@@ -20,11 +20,12 @@ goog.inherits(app.base.view.Home, bad.ui.View);
 
 /**
  * Configure the panels that is managed by this view.
+ * @override
  */
 app.base.view.Home.prototype.configurePanels = function() {
 
-  var layout = this.getLayout();
-  var user = this.getUser();
+  const layout = this.getLayout();
+  const user = this.getUser();
   if (layout && user) {
     /**
      * @type {!app.base.panel.Main}
@@ -41,7 +42,7 @@ app.base.view.Home.prototype.configurePanels = function() {
  * @private
  */
 app.base.view.Home.prototype.createPanelA_ = function(layout, user) {
-  var panA = new app.base.panel.Main();
+  const panA = new app.base.panel.Main();
   panA.setUri(new goog.Uri(contracts.urlMap.MAIN.HOME));
   panA.setUser(user);
   panA.setNestAsTarget(layout.getNest('main', 'center'));
@@ -54,6 +55,7 @@ app.base.view.Home.prototype.createPanelA_ = function(layout, user) {
 
 /**
  * Entry point once the view is ready. Renders the panels.
+ * @override
  */
 app.base.view.Home.prototype.displayPanels = function() {
   this.panA ? this.panA.renderWithTemplate() : goog.nullFunction();
@@ -62,11 +64,12 @@ app.base.view.Home.prototype.displayPanels = function() {
 
 /**
  * @param {!bad.ActionEvent} e Event object.
+ * @override
  */
 app.base.view.Home.prototype.onPanelAction = function(e) {
-  var panel = /** @type {!bad.ui.Panel} */ (e.target);
-  var value = e.getValue();
-  var data = e.getData();
+  const panel = /** @type {!bad.ui.Panel} */ (e.target);
+  const value = e.getValue();
+  const data = e.getData();
   e.stopPropagation();
 
   switch (value) {
