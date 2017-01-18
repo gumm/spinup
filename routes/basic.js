@@ -9,10 +9,9 @@ module.exports = {
    * @param res
    */
   slash: function(req, res) {
-    var setup = req.app.get('setup');
-    var shape = shapeToLayout('some_random_id', setup.shape);
-    console.log(shape);
-    var initDetail = {
+    const setup = req.app.get('setup');
+    const shape = shapeToLayout('some_random_id', setup.shape);
+    const initDetail = {
       title: setup.title,
       theme: setup.theme,
       version: setup.version,
@@ -33,7 +32,7 @@ module.exports = {
    * @param res
    */
   home: function(req, res) {
-    var app = req.app;
+    const app = req.app;
     res.render('main/home', {title: app.get('title')});
   }
 

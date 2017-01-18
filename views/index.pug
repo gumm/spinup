@@ -13,5 +13,5 @@ block bottomScripts
   script(src = '/js/launch.js')
   script.
     launch.setShape(!{JSON.stringify(shape)})
-    launch.setLanding('#{landing}')
+    launch.setLanding('!{landing}')
     launch.addApp('site')

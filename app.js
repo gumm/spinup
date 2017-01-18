@@ -3,19 +3,19 @@ require('./public/js/linked-libs/google-closure-library/closure/goog/bootstrap/n
 require('./deps.js');
 goog.require('contracts.urlMap');
 
-var express = require('express');
-var session = require('express-session');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var urls = require('./routes/urls');
-var app = express();
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const urls = require('./routes/urls');
+const app = express();
 
 
 // ---------------------------------------------------------[ Settings files ]--
-var mSettings = require('merge').recursive(
+const mSettings = require('merge').recursive(
     require('./settings.json'),
     require('./settings_local.json'));
 mSettings.version = require('./package.json').version;
@@ -31,7 +31,7 @@ console.log('\n[SETTINGS]\n', app.get('setup'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public/img/fav', 'favicon.ico')));
@@ -57,7 +57,7 @@ urls.setRouts(app, contracts.urlMap);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
